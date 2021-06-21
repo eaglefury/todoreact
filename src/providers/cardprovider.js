@@ -1,26 +1,82 @@
-import { useState } from 'react';
-import { CardContext } from '../contexts/cardcontext';
-const CardProvider = ({ children }) => {
-  const cardState = {
-    cards: [],
-    updateCards: (cardsToUpdate) => {
-      if (Array.isArray(cardsToUpdate)) {
-        cardsToUpdate.forEach((card) => {
-          const cardIndex = cards.findIndex((x) => x.id === card.id);
-          if (cardIndex === -1) {
-            cards[cardIndex] = card;
-          } else {
-            cards.push(card);
-          }
-        });
-        setCards(cards);
-      }
-    },
-  };
+import { createContext, useReducer } from 'react';
+import { cardReducer } from './card-reducer';
 
-  const [cards, setCards] = useState(cardState);
-
-  return <CardContext.Provider value={cards}>{children}</CardContext.Provider>;
+const initialState = {
+    cards: [
+        {
+            id: 1,
+            title: 'Title 1',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'todo',
+        },
+        {
+            id: 2,
+            title: 'Title 2',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'inprogress',
+        },
+        {
+            id: 3,
+            title: 'Title 3',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'inprogress',
+        },
+        {
+            id: 4,
+            title: 'Title 4',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'todo',
+        },
+        {
+            id: 5,
+            title: 'Title 5',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'completed',
+        },
+        {
+            id: 6,
+            title: 'Title 6',
+            description: 'Test Desscription jklasjkj  kasjklsajdlka kasjdkljd',
+            state: 'todo',
+        },
+    ],
 };
 
-export default CardProvider;
+export const CardContext = createContext({ initialState });
+
+export const CardProvider = ({ children }) => {
+    const [cardState, dispatch] = useReducer(cardReducer, initialState);
+
+    const addCard = ({ id, title, description }) => {
+        dispatch({
+            type: 'add',
+            payload: {
+                id: id,
+                title: title,
+                description: description,
+            },
+        });
+    };
+
+    const updateCard = ({ id, title, description }) => {
+        dispatch({
+            type: 'update',
+            payload: {
+                id: id,
+                title: title,
+                description: description,
+            },
+        });
+    };
+
+    const deleteCard = ({ id }) =>
+        dispatch({ type: 'delete', payload: { id: id } });
+
+    return (
+        <CardContext.Provider
+            value={{ cards: cardState.cards, addCard, updateCard, deleteCard }}
+        >
+            {children}
+        </CardContext.Provider>
+    );
+};

@@ -1,0 +1,10 @@
+.card {
+    margin: 5px;
+    padding: 5px;
+    word-wrap: break-word;
+    overflow: auto;
+    width: 110px;
+    min-height: 150px;
+    background: lightblue;
+    display: inline;
+}

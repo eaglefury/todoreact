@@ -1,0 +1,7 @@
+.footer {
+    height: 8vh;
+    background: darkgrey;
+    display: flex;
+    padding-top: 5px;
+    justify-content: center;
+}
