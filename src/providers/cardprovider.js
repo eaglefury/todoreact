@@ -59,7 +59,7 @@ export const CardProvider = ({ children }) => {
         });
     };
 
-    const updateCard = ({ id, title, description }) => {
+    const updateCard = ({ id, title, description, state }) => {
         console.log('in update');
         dispatch({
             type: 'update',
@@ -67,6 +67,7 @@ export const CardProvider = ({ children }) => {
                 id: id,
                 title: title,
                 description: description,
+                state:state
             },
         });
     };

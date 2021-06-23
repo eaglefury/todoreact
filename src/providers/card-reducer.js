@@ -5,10 +5,11 @@ export const cardReducer = (state, action) => {
         case 'update':
             console.log('update dispatch')
             const cardIndex = state.cards.findIndex((x) => x.id === action.payload.id);
+            console.log(action.payload);
             if (cardIndex) {
-                state.cards[cardIndex] = {...state.cards[cardIndex], ...action.payload};
+                console.log(state);
+                state = {...state, cards: [...state.cards.filter(x=> x.id !== action.payload.id), action.payload ]}
             }
-            console.log(state.cards[cardIndex]);
             return state;
         case 'delete':
             return {
