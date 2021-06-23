@@ -3,8 +3,9 @@
     padding: 5px;
     word-wrap: break-word;
     overflow: auto;
-    width: 110px;
+    width: 150px;
     min-height: 150px;
     background: lightblue;
     display: inline;
+    box-shadow: 1px 2px maroon;
 }

@@ -3,12 +3,12 @@ export const cardReducer = (state, action) => {
         case 'add':
             return { ...state, cards: [...state.cards, action.payload] };
         case 'update':
-            const cardIndex = state.cards.findIndex((x) => x.id === action.id);
+            console.log('update dispatch')
+            const cardIndex = state.cards.findIndex((x) => x.id === action.payload.id);
             if (cardIndex) {
-                state.cards[cardIndex] = {
-                    ...action.payload,
-                };
+                state.cards[cardIndex] = {...state.cards[cardIndex], ...action.payload};
             }
+            console.log(state.cards[cardIndex]);
             return state;
         case 'delete':
             return {

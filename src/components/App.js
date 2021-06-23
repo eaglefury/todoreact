@@ -7,7 +7,7 @@ import {Footer} from '../components/footer/footer'
 function App() {
     return (
         <div className="App">
-            <container className="todo">
+            <div className="todo">
                 <div>
                     <Header></Header>
                     <CardProvider>
@@ -15,8 +15,7 @@ function App() {
                     </CardProvider>
                     <Footer></Footer>
                 </div>
-            </container>
-            <container className="in-progress"></container>
+            </div>
         </div>
     );
 }

@@ -42,23 +42,25 @@ const initialState = {
     ],
 };
 
-export const CardContext = createContext({ initialState });
+export const CardContext = createContext( initialState );
 
 export const CardProvider = ({ children }) => {
     const [cardState, dispatch] = useReducer(cardReducer, initialState);
 
-    const addCard = ({ id, title, description }) => {
+    const addCard = ({ id, title, description, state}) => {
         dispatch({
             type: 'add',
             payload: {
                 id: id,
                 title: title,
                 description: description,
+                state:state
             },
         });
     };
 
     const updateCard = ({ id, title, description }) => {
+        console.log('in update');
         dispatch({
             type: 'update',
             payload: {

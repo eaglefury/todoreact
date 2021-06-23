@@ -2,12 +2,19 @@ import { useContext } from 'react';
 import './cardlist.css';
 import { CardContext } from '../../providers/cardprovider';
 import { Card } from '../card/card';
+import {AddCard} from '../addcard/addcard'
 
 export const CardList = () => {
-    const {cards, updateCard} = useContext(CardContext);
-    return ( 
-        <div className="container">
-            <div className="todo-column">
+    const {cards} = useContext(CardContext);
+    return (
+    <div className="main">
+        <div className="add-card">
+        <AddCard></AddCard>
+        </div>
+        <div className="main-content">
+            <div className="todo-main">
+                <div className="colum-heading"><h1>TODO</h1></div>
+                <div className="todo-column">
                 {
                 cards
                     .filter((x) => x.state === 'todo')
@@ -15,42 +22,46 @@ export const CardList = () => {
                         return (
                             <Card
                                 key={card.id}
-                                title={card.title}
-                                description={card.description}
-                                color="white"
-                                onChange={updateCard}
-                            ></Card>
-                        );
-                    })}
-            </div>
-            <div className="inprogress-column">
-                {cards
-                    .filter((x) => x.state === 'inprogress')
-                    .map((card) => {
-                        return (
-                            <Card
-                                key={card.id}
-                                title={card.title}
-                                description={card.description}
+                                id={card.id}
                                 color="white"
                             ></Card>
                         );
                     })}
             </div>
-            <div className="completed-column">
+            </div>
+            <div className="inprogress-main">
+                <div className="colum-heading"><h1>IN-PROGRESS</h1></div>
+                <div className="inprogress-column">
+                    {cards
+                        .filter((x) => x.state === 'inprogress')
+                        .map((card) => {
+                            return (
+                                <Card
+                                    id={card.id}
+                                    key={card.id}
+                                    color="khaki"
+                                ></Card>
+                            );
+                        })}
+                </div>
+            </div>
+            <div className="completed-main">
+                <div className="colum-heading"><h1>COMPLETED</h1></div>
+                <div className="completed-column">
                 {cards
                     .filter((x) => x.state === 'completed')
                     .map((card) => {
                         return (
                             <Card
+                                id={card.id}
                                 key={card.id}
-                                title={card.title}
-                                description={card.description}
-                                color="white"
+                                color="lightgreen"
                             ></Card>
                         );
                     })}
             </div>
+            </div>
         </div>
+    </div>
     );
 };
