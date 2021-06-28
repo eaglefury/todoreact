@@ -2,7 +2,7 @@ import './header.css';
 export const Header = () => {
     return (
         <div className="header">
-            <h2>TODO APP</h2>
+            <h1>Gaurav's TODO List</h1>
         </div>
-    )
-}
+    );
+};

@@ -3,3 +3,12 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
+.allpanels {
+    display: flex;
+    flex-direction: row;
+}
+.mainpanel {
+}
+.adminpanel {
+    background: rgb(131, 103, 199);
+}

@@ -15,7 +15,7 @@
 }
 .main-content {
     display: flex;
-    min-width: 90vw;
+    min-width: 80vw;
     min-height: var(--main-content-height);
     flex-direction: row;
     justify-content: center;

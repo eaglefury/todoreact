@@ -1,7 +1,14 @@
 .header {
     height: 8vh;
     display: flex;
-    background: cornflowerblue;
+    background: rgb(86, 3, 173);
     text-align: center;
     justify-content: center;
+}
+
+h1 {
+    color: skyblue;
+}
+h2 {
+    color: rgb(86, 3, 173);
 }
