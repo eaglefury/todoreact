@@ -1,0 +1,14 @@
+.column {
+    margin-right: 10px;
+    display: flex;
+    width: 20vw;
+    background: lightgrey;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    min-height: 60vh;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+}

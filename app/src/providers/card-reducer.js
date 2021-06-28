@@ -3,12 +3,21 @@ export const cardReducer = (state, action) => {
         case 'add':
             return { ...state, cards: [...state.cards, action.payload] };
         case 'update':
-            console.log('update dispatch')
-            const cardIndex = state.cards.findIndex((x) => x.id === action.payload.id);
+            console.log('update dispatch');
+            const cardIndex = state.cards.findIndex(
+                (x) => x.id === action.payload.id
+            );
             console.log(action.payload);
             if (cardIndex) {
-                console.log(state);
-                state = {...state, cards: [...state.cards.filter(x=> x.id !== action.payload.id), action.payload ]}
+                state = {
+                    ...state,
+                    cards: [
+                        ...state.cards.filter(
+                            (x) => x.id !== action.payload.id
+                        ),
+                        action.payload,
+                    ],
+                };
             }
             return state;
         case 'delete':
