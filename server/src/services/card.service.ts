@@ -1,7 +1,7 @@
-import { Note } from './models/note';
+import { NoteModel } from "../models/note.model";
 
 export const addNote = async (noteData: any) => {
-  const note = new Note({
+  const note = new NoteModel({
     title: noteData.title,
     description: noteData.description,
     state: noteData.state,
