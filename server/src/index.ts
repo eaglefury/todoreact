@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import { addNote } from "./services/card.service";
+import userRoute from "./controllers/user.controller";
+import notesRoute from "./controllers/note.controller";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ mongoose.connect(
 );
 
 app.use(express.json());
+app.use("/api", userRoute);
 
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`);

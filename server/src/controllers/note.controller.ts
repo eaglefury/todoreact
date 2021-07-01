@@ -13,3 +13,5 @@ notesRoute.get("/", async (request, response) => {
   }
   response.send("hello server! and test");
 });
+
+export default notesRoute;
