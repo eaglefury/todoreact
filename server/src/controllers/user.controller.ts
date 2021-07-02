@@ -4,8 +4,9 @@ import { createUser } from "../services/user.service";
 import * as bcrypt from "bcrypt";
 const userRoute = Router();
 
-userRoute.post("/register", async (req, res) => {
+userRoute.post("/user/register", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
+  console.log(req);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   try {
     const user = await createUser(
@@ -20,6 +21,10 @@ userRoute.post("/register", async (req, res) => {
   } catch (err) {
     res.status(500).send("Internal server error");
   }
+});
+
+userRoute.get("/user/", async (req, res) => {
+  res.send("hello world");
 });
 
 export default userRoute;
