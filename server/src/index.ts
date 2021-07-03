@@ -1,16 +1,20 @@
-import express from "express";
-import mongoose from "mongoose";
-import * as dotenv from "dotenv";
-import userRoute from "./controllers/user.controller";
-import notesRoute from "./controllers/note.controller";
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import apiRouter from './routes';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5020;
+const PORT = process.env.PORT || 6000;
+dotenv.config();
+
+if (!process.env.MONGO_CONNECTION_STRING) {
+  throw new Error('please set the connection string as an env variable');
+}
 
 mongoose.connect(
-  "mongodb+srv://gkapoor:94thZ$*97iffYm@cluster0.vjwbj.mongodb.net/notesdb?retryWrites=true&w=majority",
+  process.env.MONGO_CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (!err) {
@@ -22,7 +26,7 @@ mongoose.connect(
 );
 
 app.use(express.json());
-app.use("/api", userRoute);
+app.use('/api', apiRouter);
 
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`);

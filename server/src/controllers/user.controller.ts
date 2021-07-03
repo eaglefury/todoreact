@@ -1,12 +1,11 @@
-import { Router } from "express";
-import { User } from "../models/user.model";
-import { createUser } from "../services/user.service";
-import * as bcrypt from "bcrypt";
-const userRoute = Router();
+import { request, Request, Response } from 'express';
+import { User } from '../models/user.model';
+import { createUser, getUserByEmail } from '../services/user.service';
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
-userRoute.post("/user/register", async (req, res) => {
+export const registerUser = async (req: Request, res: Response) => {
   const salt = await bcrypt.genSalt(10);
-  console.log(req);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   try {
     const user = await createUser(
@@ -19,12 +18,33 @@ userRoute.post("/user/register", async (req, res) => {
     );
     res.status(201).send(user.toJSON());
   } catch (err) {
-    res.status(500).send("Internal server error");
+    res.status(500).send('Internal server error');
   }
-});
+};
 
-userRoute.get("/user/", async (req, res) => {
-  res.send("hello world");
-});
+export const login = async (req: Request, res: Response) => {
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).send('email or password mising');
+  }
 
-export default userRoute;
+  const user = await getUserByEmail(req.body.email);
+
+  if (!user) {
+    return res.status(401).send('bad email or password');
+  }
+
+  const passwordCompareResult = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
+
+  if (passwordCompareResult) {
+    const token = jwt.sign(
+      JSON.stringify({ email: req.body.email }),
+      'MY_SECRET'
+    );
+    res.status(200).send(token);
+  } else {
+    return res.status(401).send('bad email or password');
+  }
+};

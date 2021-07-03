@@ -1,7 +1,6 @@
-import { Router } from "express";
-const notesRoute = Router();
+import { Request, Response } from 'express';
 
-notesRoute.get("/", async (request, response) => {
+export const getNotes = (req: Request, res: Response) => {
   try {
     //   await addNote({
     //     title: "title",
@@ -11,7 +10,5 @@ notesRoute.get("/", async (request, response) => {
   } catch (err) {
     console.log(err);
   }
-  response.send("hello server! and test");
-});
-
-export default notesRoute;
+  res.send('hello server! and test');
+};

@@ -1,2 +1,3 @@
 app/.env
 server/src/.env
+server/.env
