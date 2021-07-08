@@ -23,6 +23,7 @@ export const Card = ({ id, color }) => {
     }));
 
     const card = cards.filter((x) => x.id === id)[0];
+    console.log(`handleid: ${dragObj.handlerId}`);
     return (
         <div
             ref={drag}

@@ -1,0 +1,7 @@
+.allpanels {
+    display: flex;
+    flex-direction: row;
+}
+.adminpanel {
+    background: rgb(131, 103, 199);
+}

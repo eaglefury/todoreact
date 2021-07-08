@@ -8,6 +8,7 @@ export const CardColumn = ({ columnName, cardColor }) => {
     cardColor = cardColor || 'white';
     const { cards } = useContext(CardContext);
 
+    // eslint-disable-next-line
     const [dropObj, drop] = useDrop(() => ({
         accept: 'CARD',
         drop: () => ({ name: columnName }),

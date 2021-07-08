@@ -1,0 +1,25 @@
+.login-body {
+    margin: 0;
+    padding: 0;
+    background: rgb(131, 103, 199);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 84vh;
+}
+
+.login-form {
+    width: 50vw;
+    height: 50vh;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: white;
+}
+.txt-box {
+    width: 150px;
+    margin: 3px;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,33 +1,22 @@
 import './App.css';
-import { CardList } from './cardlist/cardlist';
-import { CardProvider } from '../providers/cardprovider';
-import { Header } from '../components/header/header';
-import { Footer } from '../components/footer/footer';
-import { SidePanel } from './sidepanel/sidepanel';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React from 'react';
+import { Header } from './header/header';
+import { Footer } from './footer/footer';
+import { CardWrapper } from './cardwrapper/cardwrapper';
+import { Login } from './login/login';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
     return (
-        <div className="App">
-            <div className="todo">
-                <div>
-                    <DndProvider backend={HTML5Backend}>
-                        <Header></Header>
-                        <div className='allpanels'>
-                        <div className='adminpanel'>
-                        <SidePanel></SidePanel>
-                        </div>
-                        <div className='mainpanel'>
-                        <CardProvider>
-                            <CardList></CardList>
-                        </CardProvider>
-                        </div>
-                        </div>
-                        <Footer></Footer>
-                    </DndProvider>
-                </div>
-            </div>
+        <div>
+            <Header></Header>
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={CardWrapper}></Route>
+                    <Route path="/login" component={Login}></Route>
+                </Switch>
+            </Router>
+            <Footer></Footer>
         </div>
     );
 }
