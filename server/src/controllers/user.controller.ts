@@ -1,4 +1,4 @@
-import { request, Request, Response } from "express";
+import { request, Request, response, Response } from "express";
 import { User } from "../models/user.model";
 import { createUser, getUserByEmail } from "../services/user.service";
 import * as bcrypt from "bcrypt";
@@ -57,5 +57,18 @@ export const login = async (req: Request, res: Response) => {
       .send(token);
   } else {
     return res.status(401).send("bad email or password");
+  }
+};
+
+export const isAuthenticated = async (req: Request, res: Response) => {
+  if (req.cookies["token"]) {
+    try {
+      const payload = jwt.verify(req.cookies["token"], "MY_SECRET").toString();
+      res.status(200).send(payload);
+    } catch (err) {
+      res.status(403).send();
+    }
+  } else {
+    res.status(403).send();
   }
 };
