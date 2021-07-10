@@ -1,4 +1,4 @@
-.login-body {
+.register-body {
     margin: 0;
     padding: 0;
     background: rgb(131, 103, 199);
@@ -8,9 +8,9 @@
     height: 84vh;
 }
 
-.login-form {
-    min-width: 15vw;
-    min-height: 20vh;
+.register-form {
+    min-width: 20vw;
+    min-height: 40vh;
     margin-top: 30px;
     background-color: white;
     justify-content: center;
@@ -19,9 +19,11 @@
     flex-direction: column;
     border-radius: 15px;
 }
+
 .txt-box {
     width: 150px;
     margin: 3px;
+    margin-left: 30px;
 }
 
 .btn {
@@ -30,11 +32,18 @@
     background: darkgreen;
     color: white;
 }
-.register-link {
-    font-weight: 600;
-}
-
-.register-text {
+.login-text {
     margin: 30px;
     font-size: small;
+}
+
+.login-link {
+    font-weight: 600;
+}
+label {
+    margin-left: 30px;
+}
+
+h2 {
+    margin-left: 20px;
 }

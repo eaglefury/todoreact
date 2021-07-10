@@ -1,7 +1,10 @@
 import './login.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+
 export const Login = () => {
+    const history = useHistory();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -12,9 +15,12 @@ export const Login = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    withCredentials: true,
                 }
             );
-            console.log(response);
+            if (response.status === 200) {
+                history.push('/');
+            }
         } catch (err) {
             console.log(err);
         }
@@ -23,38 +29,42 @@ export const Login = () => {
 
     return (
         <div className="login-body">
-            <div className="login-form">
-                <form onSubmit={handleSubmit}>
-                    <h2>Login</h2>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        className="txt-box"
-                        id="username"
-                        type="text"
-                        onChange={(e) =>
-                            setUserCreds({
-                                ...userCreds,
-                                username: e.target.value,
-                            })
-                        }
-                    ></input>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        className="txt-box"
-                        id="password"
-                        type="text"
-                        onChange={(e) =>
-                            setUserCreds({
-                                ...userCreds,
-                                password: e.target.value,
-                            })
-                        }
-                    ></input>
-                    <button className="btn" type="submit">
-                        Login
-                    </button>
-                </form>
-            </div>
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                <label htmlFor="username">Username:</label>
+                <input
+                    className="txt-box"
+                    id="username"
+                    type="text"
+                    onChange={(e) =>
+                        setUserCreds({
+                            ...userCreds,
+                            username: e.target.value,
+                        })
+                    }
+                ></input>
+                <label htmlFor="password">Password:</label>
+                <input
+                    className="txt-box"
+                    id="password"
+                    type="text"
+                    onChange={(e) =>
+                        setUserCreds({
+                            ...userCreds,
+                            password: e.target.value,
+                        })
+                    }
+                ></input>
+                <button className="btn" type="submit">
+                    Login
+                </button>
+                <div className="register-text">
+                    <span>Don't have an account ? </span>
+                    <Link to="/register">
+                        <span className="register-link">Register</span>
+                    </Link>
+                </div>
+            </form>
         </div>
     );
 };
