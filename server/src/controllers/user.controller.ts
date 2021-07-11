@@ -50,7 +50,7 @@ export const login = async (req: Request, res: Response) => {
     res
       .status(200)
       .cookie("token", token, {
-        maxAge: 24 * 60 * 60,
+        maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: false,
       })
@@ -61,14 +61,16 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const isAuthenticated = async (req: Request, res: Response) => {
-  if (req.cookies["token"]) {
+  if (req.cookies && req.cookies["token"]) {
     try {
       const payload = jwt.verify(req.cookies["token"], "MY_SECRET").toString();
       res.status(200).send(payload);
     } catch (err) {
+      console.log(err);
       res.status(403).send();
     }
   } else {
+    console.log("no cookies");
     res.status(403).send();
   }
 };

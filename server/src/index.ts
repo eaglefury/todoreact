@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import apiRouter from "./routes";
 const cors = require("cors");
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -31,6 +32,16 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use(express.json());
 app.use("/api", apiRouter);
 

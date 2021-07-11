@@ -1,22 +1,40 @@
 import axios from 'axios';
 import { Route, useHistory } from 'react-router-dom';
+import React from 'react';
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-    const authResponse = axios.get(
-        'http://localhost:5070/api/user/isauthorized/'
-    );
-
     const history = useHistory();
+    const checkAuthorized = async () => {
+        try {
+            const response = await axios.get(
+                'http://localhost:5070/api/user/isauthorized/',
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response);
+            return response.status === 200;
+        } catch (err) {
+            return false;
+        }
+    };
 
     return (
         <Route
             {...rest}
             render={(props) => {
-                return authResponse.status === 200 ? (
-                    <Component {...rest} {...props} />
-                ) : (
-                    history.push('/login')
-                );
+                checkAuthorized()
+                    .then((isAutheticated) => {
+                        if (isAutheticated === true) {
+                            <Component {...rest} {...props} />;
+                        } else {
+                            history.push('/login');
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        history.push('/login');
+                    });
             }}
-        ></Route>
+        />
     );
 };
