@@ -1,6 +1,6 @@
 .footer {
     height: 8vh;
-    background: darkgrey;
+    background: rgb(131, 103, 199);
     display: flex;
     padding-top: 5px;
     justify-content: center;

@@ -7,19 +7,22 @@ import { CardWrapper } from './cardwrapper/cardwrapper';
 import { Login } from './login/login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Register } from './register/register';
+import { UserProvider } from '../providers/userprovider';
 
 function App() {
     return (
         <div>
-            <Header></Header>
-            <Router>
-                <Switch>
-                    <Route component={CardWrapper} exact path="/"></Route>
-                    <Route path="/login" component={Login}></Route>
-                    <Route path="/register" component={Register}></Route>
-                </Switch>
-            </Router>
-            <Footer></Footer>
+            <UserProvider>
+                <Router>
+                    <Header></Header>
+                    <Switch>
+                        <Route component={CardWrapper} exact path="/"></Route>
+                        <Route path="/login" component={Login}></Route>
+                        <Route path="/register" component={Register}></Route>
+                    </Switch>
+                    <Footer></Footer>
+                </Router>
+            </UserProvider>
         </div>
     );
 }

@@ -1,10 +1,12 @@
 import './login.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../../providers/userprovider';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 
 export const Login = () => {
     const history = useHistory();
+    const { updateUser } = useContext(UserContext);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -19,6 +21,7 @@ export const Login = () => {
                 }
             );
             if (response.status === 200) {
+                updateUser(response.data);
                 history.push('/');
             }
         } catch (err) {

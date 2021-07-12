@@ -54,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
         httpOnly: true,
         secure: false,
       })
-      .send(token);
+      .json(user);
   } else {
     return res.status(401).send("bad email or password");
   }
@@ -72,5 +72,18 @@ export const isAuthenticated = async (req: Request, res: Response) => {
   } else {
     console.log("no cookies");
     res.status(403).send();
+  }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  if (req.cookies && req.cookies["token"]) {
+    try {
+      res.clearCookie("token", { path: "/" }).status(200).send();
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "unable to clear cookie" });
+    }
+  } else {
+    res.status(200).json({ message: "no cookies to delete" });
   }
 };

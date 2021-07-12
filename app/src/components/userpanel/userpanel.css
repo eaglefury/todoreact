@@ -1,0 +1,9 @@
+.user-panel {
+    align-self: flex-end;
+}
+
+.welcome-message {
+    font: 600;
+    margin: 2rem;
+    font-weight: 900;
+}

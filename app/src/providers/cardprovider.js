@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { cardReducer } from './card-reducer';
+import { cardReducer } from './cardreducer';
 
 const initialState = {
     cards: [
@@ -42,19 +42,19 @@ const initialState = {
     ],
 };
 
-export const CardContext = createContext( initialState );
+export const CardContext = createContext(initialState);
 
 export const CardProvider = ({ children }) => {
     const [cardState, dispatch] = useReducer(cardReducer, initialState);
 
-    const addCard = ({ id, title, description, state}) => {
+    const addCard = ({ id, title, description, state }) => {
         dispatch({
             type: 'add',
             payload: {
                 id: id,
                 title: title,
                 description: description,
-                state:state
+                state: state,
             },
         });
     };
@@ -66,7 +66,7 @@ export const CardProvider = ({ children }) => {
                 id: id,
                 title: title,
                 description: description,
-                state:state
+                state: state,
             },
         });
     };

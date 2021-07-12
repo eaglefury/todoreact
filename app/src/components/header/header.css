@@ -1,13 +1,14 @@
 .header {
-    height: 8vh;
+    height: 12vh;
     display: flex;
-    background: rgb(86, 3, 173);
+    background: rgb(131, 103, 199);
     text-align: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
 h1 {
     color: skyblue;
+    align-self: flex-start;
 }
 h2 {
     color: rgb(86, 3, 173);

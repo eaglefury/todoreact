@@ -1,9 +1,15 @@
 import {
   isAuthenticated,
   login,
+  logoutUser,
   registerUser,
 } from "./controllers/user.controller";
-import { getNotes } from "./controllers/note.controller";
+import {
+  getUserNotes,
+  addMultipleNotes,
+  deleteOneNote,
+  updateOneNote,
+} from "./controllers/note.controller";
 import { Router } from "express";
 
 const apiRouter = Router();
@@ -12,8 +18,12 @@ const apiRouter = Router();
 apiRouter.post("/user/register/", registerUser);
 apiRouter.post("/user/login/", login);
 apiRouter.get("/user/isauthorized/", isAuthenticated);
+apiRouter.get("/user/logout/", logoutUser);
 
 // NOTES
-apiRouter.get("/notes/", getNotes);
+apiRouter.get("/notes/", getUserNotes);
+apiRouter.post("/notes/", addMultipleNotes);
+apiRouter.delete("/notes/", deleteOneNote);
+apiRouter.put("/notes/", updateOneNote);
 
 export default apiRouter;
