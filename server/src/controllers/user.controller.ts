@@ -43,10 +43,7 @@ export const login = async (req: Request, res: Response) => {
   );
 
   if (passwordCompareResult) {
-    const token = jwt.sign(
-      JSON.stringify({ email: req.body.email }),
-      "MY_SECRET"
-    );
+    const token = jwt.sign(JSON.stringify(user), "MY_SECRET");
     res
       .status(200)
       .cookie("token", token, {
@@ -63,14 +60,14 @@ export const login = async (req: Request, res: Response) => {
 export const isAuthenticated = async (req: Request, res: Response) => {
   if (req.cookies && req.cookies["token"]) {
     try {
-      const payload = jwt.verify(req.cookies["token"], "MY_SECRET").toString();
+      const payload = jwt.verify(req.cookies["token"], "MY_SECRET");
+
       res.status(200).send(payload);
     } catch (err) {
       console.log(err);
       res.status(403).send();
     }
   } else {
-    console.log("no cookies");
     res.status(403).send();
   }
 };

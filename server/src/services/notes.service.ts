@@ -1,5 +1,4 @@
 import { INote, NoteModel } from "../models/note.model";
-import { IUser } from "../models/user.model";
 
 export const addNote = async ({ title, description, state, user }: INote) => {
   const note = new NoteModel({
@@ -12,32 +11,38 @@ export const addNote = async ({ title, description, state, user }: INote) => {
   return await note.save();
 };
 
-export const addNotes = async (notes: INote[]) => {
-  notes.forEach(async ({ title, description, state, user }: INote) => {
-    const note = new NoteModel({
-      title,
-      description,
-      state,
-      user,
+export const addNotes = async (notes: INote[]): Promise<INote[]> => {
+  const addedNotes: INote[] = [];
+  for (const note of notes) {
+    const newNote = new NoteModel({
+      title: note.title,
+      description: note.description,
+      state: note.state,
+      user: note.user,
     });
-    await note.save();
-  });
+    const savedNote = await newNote.save();
+    addedNotes.push(savedNote);
+  }
+  return addedNotes;
 };
 
-export const deleteNote = async (id: number) => {
+export const deleteNote = async ({ _id }: INote) => {
   return await NoteModel.deleteOne({
-    _id: id,
+    _id,
   });
 };
 
-export const getNotes = async ({ _id }: IUser) => {
-  return await NoteModel.find({ user: _id });
+export const getNotes = async (_id: string) => {
+  return await NoteModel.find({
+    user: _id,
+  });
 };
 
 export const updateNote = async ({ title, description, state, _id }: INote) => {
   return await NoteModel.updateOne(
     { _id },
     {
+      _id,
       title,
       description,
       state,

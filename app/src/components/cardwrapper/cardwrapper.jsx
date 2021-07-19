@@ -1,47 +1,42 @@
 import './cardwrapper.css';
 import { SidePanel } from '../sidepanel/sidepanel';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { CardList } from '../cardlist/cardlist';
-import { CardProvider } from '../../providers/cardprovider';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useContext, useEffect } from 'react';
+import { CardContext } from '../../providers/cardprovider';
+import { UserContext } from '../../providers/userprovider';
 
 export const CardWrapper = () => {
     const history = useHistory();
-    const checkAuthorized = async () => {
-        try {
-            const response = await axios.get(
-                'http://localhost:5070/api/user/isauthorized/',
-                {
-                    withCredentials: true,
-                }
-            );
-            console.log(response);
-            return response.status === 200;
-        } catch (err) {
-            return false;
-        }
-    };
+    const { user } = useContext(UserContext);
+    const { getAllNotes, clearCards } = useContext(CardContext);
 
-    checkAuthorized().then((isAuthenticated) => {
-        if (!isAuthenticated) {
+    useEffect(() => {
+        if (user && user.userId) {
+            axios
+                .get(`http://localhost:5070/api/notes/${user.userId}`, {
+                    withCredentials: true,
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        getAllNotes(response.data);
+                    }
+                });
+        } else {
+            clearCards();
             history.push('/login');
         }
     });
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="allpanels">
-                <CardProvider>
-                    <div className="adminpanel">
-                        <SidePanel></SidePanel>
-                    </div>
-                    <div className="mainpanel">
-                        <CardList></CardList>
-                    </div>
-                </CardProvider>
+        <div className="allpanels">
+            <div className="adminpanel">
+                <SidePanel></SidePanel>
             </div>
-        </DndProvider>
+            <div className="mainpanel">
+                <CardList></CardList>
+            </div>
+        </div>
     );
 };

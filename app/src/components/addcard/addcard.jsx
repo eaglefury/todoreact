@@ -1,19 +1,35 @@
 import { CardContext } from '../../providers/cardprovider';
+import { UserContext } from '../../providers/userprovider';
 import { useContext, useState } from 'react';
 import './addcard.css';
+import axios from 'axios';
 
 export const AddCard = () => {
     const { addCard } = useContext(CardContext);
+    const { user } = useContext(UserContext);
     const [state, setState] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
         const newCard = {
-            id: Math.floor(Math.random() * 10000 + 1),
             title: state.title,
             description: state.description,
             state: state.state,
+            user: user.userId,
         };
-        addCard(newCard);
+        setState();
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('state').value = '';
+
+        axios
+            .post('http://localhost:5070/api/notes/', newCard, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                if (response.status === 201) {
+                    addCard(response.data[0]);
+                }
+            });
     };
     return (
         <form onSubmit={handleSubmit}>

@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import './userpanel.css';
+import { CardContext } from '../../providers/cardprovider';
 
 export const UserPanel = () => {
     const { user, updateUser } = useContext(UserContext);
+    const { clearCards } = useContext(CardContext);
     const history = useHistory();
     const location = useLocation();
 
@@ -17,6 +19,7 @@ export const UserPanel = () => {
             .then((response) => {
                 if (response.status === 200) {
                     updateUser({});
+                    clearCards();
                     history.push('/login');
                 }
             });

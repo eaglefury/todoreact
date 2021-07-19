@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Types } from "mongoose";
 import { IUser } from "./user.model";
 
 export interface INote extends Document {
+  _id: String;
   title: String;
   description: String;
   state: String;
@@ -20,7 +21,7 @@ const noteSchema = new Schema({
     required: true,
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "User",
     required: true,
   },

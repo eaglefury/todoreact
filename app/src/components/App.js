@@ -8,20 +8,30 @@ import { Login } from './login/login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Register } from './register/register';
 import { UserProvider } from '../providers/userprovider';
+import { CardProvider } from '../providers/cardprovider';
 
 function App() {
     return (
         <div>
             <UserProvider>
-                <Router>
-                    <Header></Header>
-                    <Switch>
-                        <Route component={CardWrapper} exact path="/"></Route>
-                        <Route path="/login" component={Login}></Route>
-                        <Route path="/register" component={Register}></Route>
-                    </Switch>
-                    <Footer></Footer>
-                </Router>
+                <CardProvider>
+                    <Router>
+                        <Header></Header>
+                        <Switch>
+                            <Route
+                                component={CardWrapper}
+                                exact
+                                path="/"
+                            ></Route>
+                            <Route path="/login" component={Login}></Route>
+                            <Route
+                                path="/register"
+                                component={Register}
+                            ></Route>
+                        </Switch>
+                        <Footer></Footer>
+                    </Router>
+                </CardProvider>
             </UserProvider>
         </div>
     );

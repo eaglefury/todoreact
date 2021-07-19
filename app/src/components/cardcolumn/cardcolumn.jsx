@@ -7,12 +7,14 @@ import { useDrop } from 'react-dnd';
 export const CardColumn = ({ columnName, cardColor }) => {
     cardColor = cardColor || 'white';
     const { cards } = useContext(CardContext);
-
-    // eslint-disable-next-line
-    const [dropObj, drop] = useDrop(() => ({
-        accept: 'CARD',
-        drop: () => ({ name: columnName }),
-    }));
+    //eslint-disable-next-line
+    const [dropObj, drop] = useDrop(
+        () => ({
+            accept: 'CARD',
+            drop: () => ({ name: columnName }),
+        }),
+        [cards]
+    );
 
     return (
         <div className="main-column">
@@ -25,8 +27,8 @@ export const CardColumn = ({ columnName, cardColor }) => {
                     .map((card) => {
                         return (
                             <Card
-                                key={card.id}
-                                id={card.id}
+                                key={card._id}
+                                id={card._id}
                                 color={cardColor}
                             ></Card>
                         );

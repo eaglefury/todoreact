@@ -11,7 +11,6 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
                     withCredentials: true,
                 }
             );
-            console.log(response);
             return response.status === 200;
         } catch (err) {
             return false;

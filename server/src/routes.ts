@@ -21,7 +21,7 @@ apiRouter.get("/user/isauthorized/", isAuthenticated);
 apiRouter.get("/user/logout/", logoutUser);
 
 // NOTES
-apiRouter.get("/notes/", getUserNotes);
+apiRouter.get("/notes/:userId", getUserNotes);
 apiRouter.post("/notes/", addMultipleNotes);
 apiRouter.delete("/notes/", deleteOneNote);
 apiRouter.put("/notes/", updateOneNote);

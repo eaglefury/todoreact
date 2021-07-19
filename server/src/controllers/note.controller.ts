@@ -13,32 +13,30 @@ Add logger
 
 export const getUserNotes = async (req: Request, res: Response) => {
   try {
-    res.status(201).send(await getNotes(req.body));
+    res.status(200).send(await getNotes(req.params["userId"]));
   } catch (err) {
     res.status(500).send();
     console.log(err);
   }
-  res.send("hello server! and test");
 };
 
 export const addMultipleNotes = async (req: Request, res: Response) => {
   try {
-    res.status(201).send(await addNotes(req.body));
+    const response = await addNotes([req.body]);
+    res.status(201).send(response);
   } catch (err) {
     res.status(500).send();
     console.log(err);
   }
-  res.send("hello server! and test");
 };
 
 export const deleteOneNote = async (req: Request, res: Response) => {
   try {
-    res.status(201).send(await deleteNote(req.body));
+    res.status(204).send(await deleteNote(req.body));
   } catch (err) {
     res.status(500).send();
     console.log(err);
   }
-  res.send("hello server! and test");
 };
 
 export const updateOneNote = async (req: Request, res: Response) => {

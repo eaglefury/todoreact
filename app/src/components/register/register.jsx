@@ -17,7 +17,6 @@ export const Register = () => {
                     },
                 }
             );
-            console.log(response);
             if (response.status === 201) {
                 history.push('/login');
             }
@@ -43,7 +42,7 @@ export const Register = () => {
                         })
                     }
                 ></input>
-                <label htmlFor="last-name">Username:</label>
+                <label htmlFor="last-name">Last Name:</label>
                 <input
                     className="txt-box"
                     id="last-name"
@@ -56,7 +55,7 @@ export const Register = () => {
                     }
                 ></input>
 
-                <label htmlFor="email">Username:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     className="txt-box"
                     id="email"
