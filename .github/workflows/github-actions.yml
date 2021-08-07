@@ -1,3 +1,7 @@
+on:
+  push:
+    branches:
+    - 'main'
 env:
   REGISTRY_NAME: gkApps
   CLUSTER_NAME: todoapp
