@@ -8,6 +8,8 @@ env:
   CLUSTER_RESOURCE_GROUP: Todo-App
   APP_NAME: todo-react
   SERVICE_NAME: todo-service
+  NAMESPACE: todo-application
+  SECRET: MONGO_CONNECTION_STRING
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,10 +23,45 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }} 
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build ./app/. -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
-        docker build ./server/. -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:${{ github.sha }}
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        docker build ./app/. -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
+        docker build ./server/. -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+    
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+
+    # Create image pull secret for ACR
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.SECRET }}
+        namespace: ${{ env.NAMESPACE }}
+        force: true
+    
+      # Deploy app to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
+          ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+        imagepullsecrets: |
+          ${{ env.SECRET }}
+        namespace: ${{ env.NAMESPACE }}
+
 
 
         

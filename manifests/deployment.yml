@@ -13,12 +13,20 @@ spec:
     spec:
       containers:
       - name: todoapp
-        image: <Image>
+        image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 80
+        - containerPort: 3000
+      - name: todoapp
+      image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+      - containerPort: 5070
           
               
