@@ -9,7 +9,7 @@ env:
   APP_NAME: todo-react
   SERVICE_NAME: todo-service
   NAMESPACE: todo-application
-  SECRET: MONGO_CONNECTION_STRING
+  SECRET: ${{ secrets.MONGO_CONNECTION_STRING }}
 jobs:
   build:
     runs-on: ubuntu-latest
