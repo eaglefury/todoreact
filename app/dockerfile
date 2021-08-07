@@ -1,0 +1,7 @@
+FROM node:14.17.3-alpine3.14
+LABEL author=gaurav.intouch@gmail.com
+WORKDIR /usr/todoapp
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["npm", "run", "start"]
