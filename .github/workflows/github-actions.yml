@@ -47,7 +47,7 @@ jobs:
     - uses: azure/k8s-create-secret@v1
       with:
         secret-type: 'generic'
-        secret-name: 'mongoConnection'
+        secret-name: 'mongo-connection'
         namespace: ${{ env.NAMESPACE }}
         arguments: --from-literal=MONGO_CONNECTION_STRING=${{secrets.MONGO_CONNECTION_STRING}}
     
@@ -61,7 +61,7 @@ jobs:
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
         imagepullsecrets: |
-          ${{ env.mongoConnection }}
+          ${{ env.mongo-connection }}
         namespace: ${{ env.NAMESPACE }}
 
 
