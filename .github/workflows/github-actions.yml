@@ -46,11 +46,10 @@ jobs:
     # Create image pull secret for ACR
     - uses: azure/k8s-create-secret@v1
       with:
-        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
-        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
-        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        secret-name: ${{ env.SECRET }}
+        secret-type: 'generic'
+        secret-name: 'MongoConnection'
         namespace: ${{ env.NAMESPACE }}
+        arguments: --from-literal=MONGO_CONNECTION_STRING=${{secrets.MONGO_CONNECTION_STRING}}
     
       # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
@@ -62,7 +61,7 @@ jobs:
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
         imagepullsecrets: |
-          ${{ env.SECRET }}
+          ${{ env.MongoConnection }}
         namespace: ${{ env.NAMESPACE }}
 
 
