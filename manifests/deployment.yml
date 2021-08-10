@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: todoreact
-        image: todo-react:latest
+        image: gkapps.azurecr.io/todo-react:latest
         resources:
           limits:
             memory: "128Mi"
@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 3000
       - name: todoservice
-        image:  todo-service:latest
+        image:  gkapps.azurecr.io/todo-service:latest
         resources:
           limits:
             memory: "128Mi"
