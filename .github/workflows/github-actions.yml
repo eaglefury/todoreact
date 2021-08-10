@@ -56,7 +56,7 @@ jobs:
       with:
         manifests: |
           manifests/deployment.yml
-          manifests/service.yml
+      # manifests/service.yml
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
