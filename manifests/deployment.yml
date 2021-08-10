@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: todoreact
-        image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
+        image: todo-react:latest
         resources:
           limits:
             memory: "128Mi"
@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 3000
       - name: todoservice
-        image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+        image:  todo-service:latest
         resources:
           limits:
             memory: "128Mi"
