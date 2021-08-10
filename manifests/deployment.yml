@@ -14,17 +14,10 @@ spec:
       containers:
       - name: todoreact
         image: gkapps.azurecr.io/todo-react:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 3000
       - name: todoservice
         image:  gkapps.azurecr.io/todo-service:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 5070
+      restartPolicy: Always

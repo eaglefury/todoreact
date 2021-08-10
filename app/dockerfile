@@ -3,5 +3,6 @@ LABEL author=gaurav.intouch@gmail.com
 WORKDIR /usr/todoapp
 COPY . .
 RUN npm install
+RUN npm install react-scripts@1.1.0 -g
 EXPOSE 3000
 CMD ["npm", "run", "start"]
