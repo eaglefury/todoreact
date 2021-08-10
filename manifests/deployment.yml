@@ -21,12 +21,10 @@ spec:
         ports:
         - containerPort: 3000
       - name: todoapp
-      image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
-      resources:
-        limits:
-          memory: "128Mi"
-          cpu: "500m"
-      ports:
-      - containerPort: 5070
-          
-              
+        image: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5070
