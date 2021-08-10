@@ -60,8 +60,6 @@ jobs:
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
             ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
-        imagepullsecrets: |
-          ${{ env.mongo-connection }}
         namespace: ${{ env.NAMESPACE }}
 
 
