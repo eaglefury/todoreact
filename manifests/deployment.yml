@@ -22,5 +22,5 @@ spec:
             - containerPort: 5070
           env:
             - name: MONGO_CONNECTION_STRING
-              value: X
+              value: ${MONGO_CONNECTION_STRING}
       restartPolicy: Always
