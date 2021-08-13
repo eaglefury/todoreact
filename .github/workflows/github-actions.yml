@@ -43,18 +43,12 @@ jobs:
       - run: |
           kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
 
-      # Create image pull secret for ACR
-      - uses: azure/k8s-create-secret@v1
-        with:
-          secret-type: 'generic'
-          secret-name: 'mongo-connection'
-          namespace: ${{ env.NAMESPACE }}
-          arguments: --from-literal=MONGO_CONNECTION_STRING=${{secrets.MONGO_CONNECTION_STRING}}
-
       - uses: swdotcom/update-and-apply-kubernetes-configs@v1
         with:
           k8-config-file-paths: manifests/deployment.yml
-          replacement-method: defined
+          replacement-method: list
+          env-replacement-list: |
+            MONGO_CONNECTION_STRING
         env:
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
