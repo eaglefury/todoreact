@@ -8,7 +8,6 @@ env:
   CLUSTER_RESOURCE_GROUP: Todo-App
   APP_NAME: todo-react
   SERVICE_NAME: todo-service
-  NAMESPACE: todo-application
   SECRET: ${{ secrets.MONGO_CONNECTION_STRING }}
 jobs:
   build:
@@ -39,16 +38,10 @@ jobs:
           cluster-name: '${{ env.CLUSTER_NAME }}'
           resource-group: '${{ env.CLUSTER_RESOURCE_GROUP }}'
 
-      # Create namespace if doesn't exist
-      - run: |
-          kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
-
       - uses: swdotcom/update-and-apply-kubernetes-configs@v1
         with:
           k8-config-file-paths: manifests/deployment.yml
-          replacement-method: list
-          env-replacement-list: |
-            MONGO_CONNECTION_STRING
+          replacement-method: defined
         env:
           MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
@@ -61,4 +54,3 @@ jobs:
           images: |
             ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
             ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
-          namespace: ${{ env.NAMESPACE }}
