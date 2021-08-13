@@ -8,7 +8,6 @@ env:
   CLUSTER_RESOURCE_GROUP: Todo-App
   APP_NAME: todo-react
   SERVICE_NAME: todo-service
-  NAMESPACE: todo-ns
   SECRET: ${{ secrets.MONGO_CONNECTION_STRING }}
 jobs:
   build:
@@ -39,25 +38,13 @@ jobs:
           cluster-name: '${{ env.CLUSTER_NAME }}'
           resource-group: '${{ env.CLUSTER_RESOURCE_GROUP }}'
 
-      # Create namespace if doesn't exist
-      - run: |
-          kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
-
       # Create image pull secret for ACR
       - uses: azure/k8s-create-secret@v1
         with:
           secret-type: 'generic'
           secret-name: 'mongo-connection'
-          namespace: ${{ env.NAMESPACE }}
           arguments: --from-literal=MONGO_CONNECTION_STRING=${{secrets.MONGO_CONNECTION_STRING}}
-
-      - uses: swdotcom/update-and-apply-kubernetes-configs@v1
-        with:
-          k8-config-file-paths: manifests/deployment.yml
-          replacement-method: defined
-        env:
-          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
-
+          
         # Deploy app to AKS
       - uses: azure/k8s-deploy@v1
         with:

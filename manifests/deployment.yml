@@ -20,7 +20,4 @@ spec:
           image: gkapps.azurecr.io/todo-service:latest
           ports:
             - containerPort: 5070
-          env:
-            - name: MONGO_CONNECTION_STRING
-              value: ${MONGO_CONNECTION_STRING}
       restartPolicy: Always
