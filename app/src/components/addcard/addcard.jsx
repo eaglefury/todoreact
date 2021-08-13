@@ -22,7 +22,7 @@ export const AddCard = () => {
         document.getElementById('state').value = '';
 
         axios
-            .post('http://localhost:5070/api/notes/', newCard, {
+            .post('http://40.91.83.196:5070/api/notes/', newCard, {
                 withCredentials: true,
             })
             .then((response) => {

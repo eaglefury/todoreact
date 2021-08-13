@@ -13,7 +13,7 @@ export const UserPanel = () => {
 
     const onLogoutClick = (e) => {
         axios
-            .get('http://localhost:5070/api/user/logout/', {
+            .get('http://40.91.83.196:5070/api/user/logout/', {
                 withCredentials: true,
             })
             .then((response) => {
