@@ -56,7 +56,7 @@ jobs:
           k8-config-file-paths: manifests/deployment.yml
           replacement-method: defined
         env:
-          MONGO_CONNECTION_STRING: ${{ env.MONGO_CONNECTION_STRING }}
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
         # Deploy app to AKS
       - uses: azure/k8s-deploy@v1
