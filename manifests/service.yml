@@ -8,6 +8,8 @@ spec:
     app: todoapp
   ports:
     - port: 80
+      name: reactport
       targetPort: 3000
     - port: 5070
+      name: serviceport
       targetPort: 5070
