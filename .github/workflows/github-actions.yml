@@ -7,8 +7,7 @@ env:
   CLUSTER_NAME: todoapp
   CLUSTER_RESOURCE_GROUP: Todo-App
   APP_NAME: todo-react
-  SERVICE_NAME: todo-service
-  SECRET: ${{ secrets.MONGO_CONNECTION_STRING }}
+  SERVICE_NAME: todo-service  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,22 +37,9 @@ jobs:
           cluster-name: '${{ env.CLUSTER_NAME }}'
           resource-group: '${{ env.CLUSTER_RESOURCE_GROUP }}'
 
-      # Create image pull secret for ACR
-      - uses: azure/k8s-create-secret@v1
+      - uses: swdotcom/update-and-apply-kubernetes-configs@v1
         with:
-          secret-type: 'generic'
-          secret-name: 'mongo-connection'
-          arguments: --from-literal=MONGO_CONNECTION_STRING=${{secrets.MONGO_CONNECTION_STRING}}
-          
-        # Deploy app to AKS
-      - uses: azure/k8s-deploy@v1
-        with:
-          manifests: |
-            manifests/deployment.yml
-            manifests/service.yml
-          images: |
-            ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:latest
-            ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.SERVICE_NAME }}:latest
-          namespace: ${{ env.NAMESPACE }}
-          imagepullsecrets: |
-            mongo-connection
+          k8-config-file-paths: manifests/deployment.yml  manifests/service.yml
+          replacement-method: defined
+        env:
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
