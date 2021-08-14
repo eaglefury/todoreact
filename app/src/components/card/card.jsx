@@ -9,7 +9,7 @@ export const Card = ({ id, color }) => {
 
     const setCard = (card) => {
         axios
-            .put('http://10.0.100.205:5070/api/notes/', card, {
+            .put('http://52.148.167.248/api/notes/', card, {
                 withCredentials: true,
             })
             .then((response) => {
@@ -21,7 +21,7 @@ export const Card = ({ id, color }) => {
 
     const killCard = (card) => {
         axios
-            .delete('http://10.0.100.205:5070/api/notes/', {
+            .delete('http://52.148.167.248/api/notes/', {
                 data: { ...card },
                 withCredentials: true,
             })

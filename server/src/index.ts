@@ -28,13 +28,13 @@ mongoose.connect(
 );
 app.use(
   cors({
-    origin: 'http://10.0.120.56',
+    origin: 'http://40.91.86.176',
     credentials: true,
   })
 );
 app.use(cookieParser());
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://10.0.120.56');
+  res.header('Access-Control-Allow-Origin', 'http://40.91.86.176');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
     'Access-Control-Allow-Headers',

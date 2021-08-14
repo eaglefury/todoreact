@@ -11,7 +11,7 @@ export const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://10.0.100.205:5070/api/user/login',
+                'http://52.148.167.248/api/user/login',
                 userCreds,
                 {
                     headers: {

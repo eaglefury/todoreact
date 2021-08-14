@@ -13,7 +13,7 @@ export const UserPanel = () => {
 
     const onLogoutClick = (e) => {
         axios
-            .get('http://10.0.100.205:5070/api/user/logout/', {
+            .get('http://52.148.167.248/api/user/logout/', {
                 withCredentials: true,
             })
             .then((response) => {
