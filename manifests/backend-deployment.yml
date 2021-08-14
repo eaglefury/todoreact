@@ -32,8 +32,8 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: todoapp
+    app: todoservice
   ports:
-    - port: 5070
-      name: reactport
+    - port: 80
+      name: serviceport
       targetPort: 5070
