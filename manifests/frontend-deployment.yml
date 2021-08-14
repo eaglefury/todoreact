@@ -1,0 +1,36 @@
+# react app deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp
+  template:
+    metadata:
+      labels:
+        app: todoapp
+  spec:
+    containers:
+      - name: todoreact
+        image: gkapps.azurecr.io/todo-react:latest
+        ports:
+          - containerPort: 3000
+    restartPolicy: Always
+
+---
+# react service
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp
+spec:
+  type: LoadBalancer
+  selector:
+    app: todoapp
+  ports:
+    - port: 80
+      name: reactport
+      targetPort: 3000

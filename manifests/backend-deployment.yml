@@ -1,0 +1,39 @@
+# todo service app deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoservice
+  template:
+    metadata:
+      labels:
+        app: todoservice
+  spec:
+    containers:
+      - name: todoservice
+        image: gkapps.azurecr.io/todo-service:latest
+        ports:
+          - containerPort: 5070
+        env:
+          - name: MONGO_CONNECTION_STRING
+            value: ${MONGO_CONNECTION_STRING}
+    restartPolicy: Always
+
+---
+# todo service deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoservice
+spec:
+  selector:
+    app: todoapp
+  ports:
+    - port: 5070
+      name: reactport
+      targetPort: 5070
+  restartPolicy: Always
