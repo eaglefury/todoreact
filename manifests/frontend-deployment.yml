@@ -18,7 +18,7 @@ spec:
           image: gkapps.azurecr.io/todo-react:latest
           ports:
             - containerPort: 3000
-      restartPolicy: Always
+          restartPolicy: Always
 
 ---
 # react service

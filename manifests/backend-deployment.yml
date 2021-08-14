@@ -21,7 +21,7 @@ spec:
           env:
             - name: MONGO_CONNECTION_STRING
               value: ${MONGO_CONNECTION_STRING}
-      restartPolicy: Always
+          restartPolicy: Always
 
 ---
 # todo service deployment
