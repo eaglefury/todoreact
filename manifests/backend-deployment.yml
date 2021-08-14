@@ -30,6 +30,7 @@ kind: Service
 metadata:
   name: todoservice
 spec:
+  type: LoadBalancer
   selector:
     app: todoapp
   ports:
