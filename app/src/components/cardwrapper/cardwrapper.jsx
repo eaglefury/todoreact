@@ -15,7 +15,7 @@ export const CardWrapper = () => {
     useEffect(() => {
         if (user && user.userId) {
             axios
-                .get(`http://40.91.83.196:5070/api/notes/${user.userId}`, {
+                .get(`http://10.0.100.205:5070/api/notes/${user.userId}`, {
                     withCredentials: true,
                 })
                 .then((response) => {

@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
     const checkAuthorized = async () => {
         try {
             const response = await axios.get(
-                'http://40.91.83.196:5070/api/user/isauthorized/',
+                'http://10.0.100.205/api/user/isauthorized/',
                 {
                     withCredentials: true,
                 }

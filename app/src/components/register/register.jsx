@@ -9,7 +9,7 @@ export const Register = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://40.91.83.196:5070/api/user/register',
+                'http://10.0.100.205:5070/api/user/register',
                 userCreds,
                 {
                     headers: {
