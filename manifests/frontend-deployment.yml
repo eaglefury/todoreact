@@ -12,13 +12,13 @@ spec:
     metadata:
       labels:
         app: todoapp
-  spec:
-    containers:
-      - name: todoreact
-        image: gkapps.azurecr.io/todo-react:latest
-        ports:
-          - containerPort: 3000
-    restartPolicy: Always
+    spec:
+      containers:
+        - name: todoreact
+          image: gkapps.azurecr.io/todo-react:latest
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
 
 ---
 # react service
