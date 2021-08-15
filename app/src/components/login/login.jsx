@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../providers/userprovider';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import config from '../../config.json';
 
 export const Login = () => {
     const history = useHistory();
@@ -11,7 +12,7 @@ export const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://52.148.167.248/api/user/login',
+                `${config['api-server']}/api/user/login`,
                 userCreds,
                 {
                     headers: {

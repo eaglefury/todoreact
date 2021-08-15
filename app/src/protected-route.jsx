@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { Route, useHistory } from 'react-router-dom';
 import React from 'react';
+import config from './config.json';
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
     const history = useHistory();
     const checkAuthorized = async () => {
         try {
             const response = await axios.get(
-                'http://52.148.167.248//api/user/isauthorized/',
+                `${config['api-server']}/api/user/isauthorized/`,
                 {
                     withCredentials: true,
                 }

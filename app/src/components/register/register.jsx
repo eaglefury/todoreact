@@ -2,6 +2,7 @@ import './register.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import config from '../../config.json';
 
 export const Register = () => {
     const history = useHistory();
@@ -9,7 +10,7 @@ export const Register = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://52.148.167.248/api/user/register',
+                `${config['api-server']}/api/user/register`,
                 userCreds,
                 {
                     headers: {

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import { CardContext } from '../../providers/cardprovider';
 import { UserContext } from '../../providers/userprovider';
+import config from '../../config.json';
 
 export const CardWrapper = () => {
     const history = useHistory();
@@ -15,7 +16,7 @@ export const CardWrapper = () => {
     useEffect(() => {
         if (user && user.userId) {
             axios
-                .get(`http://52.148.167.248/api/notes/${user.userId}`, {
+                .get(`${config['api-server']}/api/notes/${user.userId}`, {
                     withCredentials: true,
                 })
                 .then((response) => {

@@ -3,13 +3,14 @@ import { CardContext } from '../../providers/cardprovider';
 import { useContext } from 'react';
 import { useDrag } from 'react-dnd';
 import axios from 'axios';
+import config from '../../config.json';
 
 export const Card = ({ id, color }) => {
     const { cards, updateCard, deleteCard } = useContext(CardContext);
-
+    
     const setCard = (card) => {
         axios
-            .put('http://52.148.167.248/api/notes/', card, {
+            .put(`${config['api-server']}/api/notes/`, card, {
                 withCredentials: true,
             })
             .then((response) => {
@@ -21,7 +22,7 @@ export const Card = ({ id, color }) => {
 
     const killCard = (card) => {
         axios
-            .delete('http://52.148.167.248/api/notes/', {
+            .delete(`${config['api-server']}/api/notes/`, {
                 data: { ...card },
                 withCredentials: true,
             })
@@ -32,6 +33,7 @@ export const Card = ({ id, color }) => {
             });
     };
 
+    // eslint-disable-next-line no-unused-vars
     const [dragObj, drag] = useDrag(
         () => ({
             type: 'CARD',

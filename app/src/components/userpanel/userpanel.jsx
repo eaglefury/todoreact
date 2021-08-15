@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
 import './userpanel.css';
 import { CardContext } from '../../providers/cardprovider';
+import config from '../../config.json';
 
 export const UserPanel = () => {
     const { user, updateUser } = useContext(UserContext);
@@ -13,7 +14,7 @@ export const UserPanel = () => {
 
     const onLogoutClick = (e) => {
         axios
-            .get('http://52.148.167.248/api/user/logout/', {
+            .get(`${config['api-server']}/api/user/logout/`, {
                 withCredentials: true,
             })
             .then((response) => {
